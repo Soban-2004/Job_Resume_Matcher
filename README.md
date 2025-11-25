@@ -42,8 +42,8 @@ An intelligent, dual-mode application designed to bridge the gap between talent 
 
 - **Frontend:** Streamlit
 - **LLM Orchestration:** LangChain
-- **Model:** OpenAI GPT-3.5 / Groq (Configurable)
-- **Vector Embeddings:** FAISS / ChromaDB (for semantic search)
+- **Model:** Llama3-8B / Groq API (Configurable)
+- **Vector Embeddings:** FAISS (for semantic search)
 - **PDF Processing:** PyPDF2
 - **Visualization:** Pandas & Plotly
 
