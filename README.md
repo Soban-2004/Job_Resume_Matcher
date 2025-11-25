@@ -14,7 +14,7 @@ An intelligent, dual-mode application designed to bridge the gap between talent 
 ### 1. For Job Seekers 🧑‍💻
 *Analyze your resume against a specific Job Description (JD) to get an ATS score, skill gap analysis, and a tailored cover letter.*
 
-[https://github.com/user-attachments/assets/job_seeker_demo.mp4](https://github.com/Soban-2004/Job_Resume_Matcher/issues/1#issue-3663038605)
+<video src="https://github.com/user-attachments/assets/da1fff94-9f64-44b6-aef9-3b93f04c5e52" controls="controls" style="max-width: 100%;"></video>
 ### 2. For Recruiters 🕵️‍♂️
 *Upload a Job Description and bulk-upload multiple resumes to get a ranked table of candidates based on semantic relevance.*
 
