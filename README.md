@@ -18,7 +18,8 @@ An intelligent, dual-mode application designed to bridge the gap between talent 
 ### 2. For Recruiters 🕵️‍♂️
 *Upload a Job Description and bulk-upload multiple resumes to get a ranked table of candidates based on semantic relevance.*
 
-https://github.com/user-attachments/assets/recruiter_demo.mp4
+<video src="https://github.com/user-attachments/assets/fd6c3f58-627f-4861-9996-ce2becec2f69" controls="controls" style="max-width: 100%;"></video>
+
 ---
 
 ## ✨ Key Features
