@@ -1,0 +1,32 @@
+Job Title: Data Analyst
+
+Job Description:
+We are looking for a detail-oriented Data Analyst to join our growing analytics team. The ideal candidate will have experience in analyzing complex datasets, generating insights, and supporting data-driven decision-making.
+
+Responsibilities:
+
+Collect, clean, and analyze large datasets from multiple sources.
+
+Build dashboards and reports using tools like Tableau, Power BI, or Streamlit.
+
+Collaborate with stakeholders to define KPIs and track business performance.
+
+Perform exploratory data analysis (EDA) and apply statistical methods.
+
+Work with data engineering teams to optimize data pipelines.
+
+Requirements:
+
+Bachelor’s degree in Computer Science, Statistics, Mathematics, or related field.
+
+Proficiency in Python (pandas, NumPy, matplotlib, scikit-learn).
+
+Strong knowledge of SQL for querying relational databases.
+
+Experience with data visualization tools (Tableau, Power BI, Streamlit).
+
+Familiarity with machine learning concepts is a plus.
+
+Excellent problem-solving and communication skills.
+
+Experience in Cloud service Platforms.
