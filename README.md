@@ -14,15 +14,19 @@ This isn't a single Streamlit script — it's a real client/server application: 
 
 ---
 
-## 📹 Demo
+<h2>📹 Demo</h2>
 
-### 👤 Job Seeker Mode
+<h3>👤 Job Seeker Mode</h3>
 
-https://github.com/user-attachments/assets/76ee3883-d662-41f1-a938-d3c3e629fb24
+<p align="center">
+  <video src="https://github.com/user-attachments/assets/b327814f-7b5b-45f8-afca-d92dc2ca671e" controls width="90%"></video>
+</p>
 
-### 🏢 Recruiter Mode
+<h3>🏢 Recruiter Mode</h3>
 
-https://github.com/user-attachments/assets/6ca1dda6-54ea-494f-b00b-78e493988723
+<p align="center">
+  <video src="https://github.com/user-attachments/assets/6f50037b-c7fb-4ac5-8a3d-7d0fb819552e" controls width="90%"></video>
+</p>
 
 <!--
   Drop your recorded demos in here, e.g.:
