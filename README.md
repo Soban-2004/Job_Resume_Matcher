@@ -16,9 +16,13 @@ This isn't a single Streamlit script — it's a real client/server application: 
 
 ## 📹 Demo
 
-> 🎥 **Job Seeker mode walkthrough** — _video coming soon_
->
-> 🎥 **Recruiter mode walkthrough** — _video coming soon_
+### 👤 Job Seeker Mode
+
+https://github.com/user-attachments/assets/76ee3883-d662-41f1-a938-d3c3e629fb24
+
+### 🏢 Recruiter Mode
+
+https://github.com/user-attachments/assets/6ca1dda6-54ea-494f-b00b-78e493988723
 
 <!--
   Drop your recorded demos in here, e.g.:
