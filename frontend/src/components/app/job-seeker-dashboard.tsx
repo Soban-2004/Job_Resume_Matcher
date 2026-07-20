@@ -5,6 +5,7 @@ import { FileText, Plus, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Skeleton } from "@/components/ui/skeleton";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { scoreTone, TONE_TEXT } from "@/lib/score-tone";
 import { listReports, listResumes } from "@/lib/api";
@@ -47,6 +48,12 @@ export function JobSeekerDashboard({
 
       <Card className="flex flex-col gap-3 p-6">
         <h2 className="text-sm font-medium text-muted-foreground">Your Resumes</h2>
+        {resumes === null && !error && (
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-5 w-2/3" />
+            <Skeleton className="h-5 w-1/2" />
+          </div>
+        )}
         {resumes && resumes.length === 0 && (
           <p className="text-sm text-muted-foreground">No resumes uploaded yet.</p>
         )}
@@ -67,6 +74,13 @@ export function JobSeekerDashboard({
 
       <Card className="flex flex-col gap-3 p-6">
         <h2 className="text-sm font-medium text-muted-foreground">Recent Reports</h2>
+        {reports === null && !error && (
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+          </div>
+        )}
         {reports && reports.length === 0 && (
           <p className="text-sm text-muted-foreground">
             No saved reports yet -- run a new analysis to build your history.

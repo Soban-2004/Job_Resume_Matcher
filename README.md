@@ -69,48 +69,7 @@ Most "AI resume matcher" projects are a single LLM call wrapped in a chat prompt
 
 ## 🏗️ System Architecture
 
-```mermaid
-flowchart LR
-    subgraph Client["🖥️ Next.js 16 Frontend"]
-        UI[App Router UI]
-        SBClient[Supabase Auth Client]
-    end
-
-    subgraph Server["⚙️ FastAPI Backend"]
-        API[REST API]
-        Pipeline[RAG + Scoring Pipeline]
-        JobStore[In-memory Job Store<br/>live progress polling]
-    end
-
-    subgraph Data["🗄️ Data Layer"]
-        Qdrant[(Qdrant<br/>Vector Store)]
-        Postgres[(Supabase Postgres<br/>profiles · resumes · reports<br/>projects · candidates)]
-    end
-
-    subgraph LLMs["🧠 LLM Providers (tiered fallback)"]
-        Ollama[Ollama Cloud]
-        Gemini[Gemini Flash Lite]
-        Groq[Groq Llama]
-    end
-
-    subgraph External["✉️ External Services"]
-        SMTP[SMTP Email]
-        SupaAuth[Supabase Auth API]
-    end
-
-    UI <-->|REST + polling| API
-    SBClient <-->|JWT session| SupaAuth
-    UI -->|Bearer token| API
-    API -->|verify token| SupaAuth
-    API --> Pipeline
-    Pipeline --> JobStore
-    Pipeline <--> Qdrant
-    API <--> Postgres
-    Pipeline --> Ollama
-    Pipeline --> Gemini
-    Pipeline --> Groq
-    API --> SMTP
-```
+![System Architecture](docs/diagrams/system-architecture.svg)
 
 **Why an in-memory job store *and* Postgres?** Live progress (which candidate is being scored right now, streaming activity text) is ephemeral and polled every 2 seconds — persisting that to a database would be pure overhead. Once a batch finishes, its final results are written to Postgres so the recruiter can close the tab and reopen the project days later. The two layers serve genuinely different lifetimes.
 

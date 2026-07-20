@@ -194,6 +194,18 @@ async def get_project(project_id: str, user: CurrentUser = Depends(get_current_u
         db.close()
 
 
+@router.delete("/projects/{project_id}")
+async def delete_project(project_id: str, user: CurrentUser = Depends(get_current_user)) -> dict:
+    db = get_db_session()
+    try:
+        deleted = crud.delete_project(db, user.id, project_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Project not found.")
+        return {"status": "deleted"}
+    finally:
+        db.close()
+
+
 @router.post("/projects/{project_id}/jobs")
 async def create_job(
     project_id: str,

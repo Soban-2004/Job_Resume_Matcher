@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Briefcase, Users } from "lucide-react";
+import { Briefcase, Loader2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { PasswordInput } from "@/components/app/password-input";
 import { createClient } from "@/lib/supabase/client";
 import { GRADIENT_CTA } from "@/lib/category-theme";
 import { cn } from "@/lib/utils";
@@ -106,9 +107,8 @@ export default function SignupPage() {
             </div>
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="password">Password</Label>
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
                 required
                 minLength={6}
                 value={password}
@@ -116,7 +116,8 @@ export default function SignupPage() {
               />
             </div>
             {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-            <Button type="submit" className={GRADIENT_CTA} disabled={submitting}>
+            <Button type="submit" className={cn("gap-1.5", GRADIENT_CTA)} disabled={submitting}>
+              {submitting && <Loader2 className="size-3.5 animate-spin" />}
               {submitting ? "Creating account..." : "Sign up"}
             </Button>
           </form>

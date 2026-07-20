@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FolderKanban, Plus, Users, X } from "lucide-react";
+import { FolderKanban, Loader2, Plus, Trash2, Users, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -11,10 +11,70 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { FileDropzone } from "@/components/app/file-dropzone";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
-import { createProject, listProjects } from "@/lib/api";
+import { createProject, deleteProject, listProjects } from "@/lib/api";
 import { GRADIENT_CTA } from "@/lib/category-theme";
 import { cn } from "@/lib/utils";
 import type { ProjectSummary } from "@/lib/types";
+
+function ProjectCard({ project, onDeleted }: { project: ProjectSummary; onDeleted: (id: string) => void }) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleDelete(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirming) {
+      setConfirming(true);
+      return;
+    }
+    setDeleting(true);
+    setError(null);
+    try {
+      await deleteProject(project.id);
+      onDeleted(project.id);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete project.");
+      setDeleting(false);
+      setConfirming(false);
+    }
+  }
+
+  return (
+    <Link href={`/recruiter/${project.id}`}>
+      <Card className="flex h-full flex-col gap-3 p-5 hover:border-primary/40">
+        <div className="flex items-center gap-2">
+          <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400">
+            <FolderKanban className="size-3.5" />
+          </div>
+          <span className="truncate text-sm font-medium text-foreground">{project.name}</span>
+          <Button
+            variant={confirming ? "destructive" : "ghost"}
+            size="icon-sm"
+            className="ml-auto shrink-0"
+            disabled={deleting}
+            onClick={handleDelete}
+            onBlur={() => setConfirming(false)}
+            aria-label={confirming ? "Confirm delete" : "Delete project"}
+          >
+            {deleting ? <Loader2 className="size-3.5 animate-spin" /> : <Trash2 className="size-3.5" />}
+          </Button>
+        </div>
+        <p className="text-xs text-muted-foreground">{project.job_role}</p>
+        {confirming && !deleting && (
+          <p className="text-xs font-medium text-destructive">Click delete again to confirm.</p>
+        )}
+        {error && <p className="text-xs text-destructive">{error}</p>}
+        <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground">
+          <span>
+            <span className="font-medium text-foreground">{project.candidate_count}</span> candidates
+          </span>
+          <span>{new Date(project.updated_at).toLocaleDateString()}</span>
+        </div>
+      </Card>
+    </Link>
+  );
+}
 
 export default function RecruiterDashboardPage() {
   const [projects, setProjects] = useState<ProjectSummary[] | null>(null);
@@ -144,23 +204,10 @@ export default function RecruiterDashboardPage() {
         <StaggerGroup className="grid gap-4 sm:grid-cols-2">
           {projects.map((p) => (
             <StaggerItem key={p.id}>
-              <Link href={`/recruiter/${p.id}`}>
-                <Card className="flex h-full flex-col gap-3 p-5 hover:border-primary/40">
-                  <div className="flex items-center gap-2">
-                    <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400">
-                      <FolderKanban className="size-3.5" />
-                    </div>
-                    <span className="truncate text-sm font-medium text-foreground">{p.name}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">{p.job_role}</p>
-                  <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground">
-                    <span>
-                      <span className="font-medium text-foreground">{p.candidate_count}</span> candidates
-                    </span>
-                    <span>{new Date(p.updated_at).toLocaleDateString()}</span>
-                  </div>
-                </Card>
-              </Link>
+              <ProjectCard
+                project={p}
+                onDeleted={(id) => setProjects((prev) => (prev ? prev.filter((x) => x.id !== id) : prev))}
+              />
             </StaggerItem>
           ))}
         </StaggerGroup>

@@ -135,6 +135,14 @@ export async function getProject(projectId: string): Promise<ProjectDetail> {
   return res.json();
 }
 
+export async function deleteProject(projectId: string): Promise<void> {
+  const res = await fetch(`${API_BASE_URL}/api/recruiter/projects/${projectId}`, {
+    method: "DELETE",
+    headers: await authHeaders(),
+  });
+  if (!res.ok) throw new Error(await parseErrorDetail(res));
+}
+
 export async function createProjectBatch(projectId: string, resumes: File[]): Promise<string> {
   const form = new FormData();
   for (const resume of resumes) {

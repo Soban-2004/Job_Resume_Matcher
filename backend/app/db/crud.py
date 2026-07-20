@@ -108,6 +108,20 @@ def get_project(db: Session, recruiter_id: str, project_id: str) -> RecruitmentP
     )
 
 
+def delete_project(db: Session, recruiter_id: str, project_id: str) -> bool:
+    """Scoped to recruiter_id so one recruiter can never delete another's
+    project by guessing an ID. No ORM cascade is configured, so candidates
+    are deleted explicitly before the project row itself.
+    """
+    project = get_project(db, recruiter_id, project_id)
+    if not project:
+        return False
+    db.query(ProjectCandidate).filter(ProjectCandidate.project_id == project_id).delete()
+    db.delete(project)
+    db.commit()
+    return True
+
+
 def save_project_candidates(db: Session, project_id: str, candidates: list[CandidateResult]) -> None:
     for c in candidates:
         db.add(

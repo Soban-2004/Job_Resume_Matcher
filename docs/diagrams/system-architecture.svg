@@ -1,0 +1,149 @@
+<svg viewBox="0 0 1180 820" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#d946ef"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2440"/>
+      <stop offset="100%" stop-color="#221d36"/>
+    </linearGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4ade80"/>
+    </marker>
+    <marker id="arrowRose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrowFuchsia" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e879f9"/>
+    </marker>
+  </defs>
+
+  <!-- ============ TITLE ============ -->
+  <text x="24" y="30" font-size="20" font-weight="800" fill="#f3f4f6">System Architecture</text>
+  <text x="24" y="48" font-size="12" fill="#9ca3af">Next.js frontend · FastAPI backend · Supabase (auth + Postgres) · Qdrant · tiered LLM providers</text>
+
+  <!-- ============ GROUP PANELS ============ -->
+  <rect x="24" y="110" width="266" height="225" rx="16" fill="#6366f1" fill-opacity="0.10" stroke="#818cf8" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="46" y="140" font-size="14" font-weight="700" fill="#a5b4fc">NEXT.JS 16 FRONTEND</text>
+
+  <rect x="322" y="110" width="330" height="320" rx="16" fill="#8b5cf6" fill-opacity="0.10" stroke="#a78bfa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="344" y="140" font-size="14" font-weight="700" fill="#c4b5fd">FASTAPI BACKEND</text>
+
+  <rect x="684" y="110" width="266" height="225" rx="16" fill="#d946ef" fill-opacity="0.10" stroke="#e879f9" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="706" y="140" font-size="14" font-weight="700" fill="#f0abfc">EXTERNAL SERVICES</text>
+
+  <rect x="684" y="372" width="266" height="304" rx="16" fill="#f43f5e" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="706" y="402" font-size="14" font-weight="700" fill="#fda4af">LLM PROVIDERS</text>
+  <text x="706" y="421" font-size="11.5" fill="#fda4af" opacity="0.85">tiered fallback chain</text>
+
+  <rect x="322" y="472" width="330" height="200" rx="16" fill="#22c55e" fill-opacity="0.10" stroke="#4ade80" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="344" y="502" font-size="14" font-weight="700" fill="#86efac">DATA LAYER</text>
+
+  <!-- ============ CONNECTIONS (drawn before nodes so nodes sit on top of line ends) ============ -->
+
+  <!-- A. App Router UI <-> REST API -->
+  <path d="M 268 195 L 344 195" fill="none" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="277" y="163" width="58" height="17" rx="8.5" fill="#111827" opacity="0.92"/>
+  <text x="306" y="175.5" font-size="8.5" fill="#e5e7eb" text-anchor="middle">REST + poll</text>
+
+  <!-- B. Supabase Auth Client <-> Supabase Auth API — routed through the top lane (y=80), never crossing the Server panel -->
+  <path d="M 268 281 L 300 281 L 300 80 L 817 80 L 817 162" fill="none" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="500" y="71" width="82" height="18" rx="9" fill="#111827" opacity="0.9"/>
+  <text x="541" y="84" font-size="9.5" fill="#e5e7eb" text-anchor="middle">JWT session</text>
+
+  <!-- C. Auth Check <-> Supabase Auth API — same row, direct straight line through the gap -->
+  <path d="M 630 195 L 706 195" fill="none" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="640" y="177" width="72" height="18" rx="9" fill="#111827" opacity="0.9"/>
+  <text x="676" y="190" font-size="9.5" fill="#e5e7eb" text-anchor="middle">verify token</text>
+
+  <!-- D. REST API -> RAG Pipeline (internal, straight down) -->
+  <path d="M 411 227 L 411 254" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- E. RAG Pipeline -> Job Store (internal, straight down) -->
+  <path d="M 487 318 L 487 346" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- F. REST API -> SMTP Email — via the inter-row gap, then its own right-side corridor lane (x=658, kept clear of the Ollama line at x=668) -->
+  <path d="M 411 227 L 411 236 L 658 236 L 658 282 L 706 282" fill="none" stroke="#e879f9" stroke-width="2" marker-end="url(#arrowFuchsia)"/>
+
+  <!-- G. RAG Pipeline <-> Qdrant — via the left margin corridor, clear of Job Store -->
+  <path d="M 344 286 L 333 286 L 333 583 L 344 583" fill="none" stroke="#4ade80" stroke-width="2" marker-end="url(#arrowGreen)" marker-start="url(#arrowGreen)"/>
+
+  <!-- H. Job Store <-> Supabase Postgres — via the right margin corridor -->
+  <path d="M 630 378 L 641 378 L 641 583 L 630 583" fill="none" stroke="#4ade80" stroke-width="2" marker-end="url(#arrowGreen)" marker-start="url(#arrowGreen)"/>
+
+  <!-- I. RAG Pipeline -> Ollama (tier 1) — via the right-side corridor between Server and LLM panels -->
+  <path d="M 630 286 L 668 286 L 668 468 L 706 468" fill="none" stroke="#fb7185" stroke-width="2" marker-end="url(#arrowRose)"/>
+
+  <!-- ============ NODES ============ -->
+  <!-- Client -->
+  <rect x="46" y="163" width="222" height="64" rx="12" fill="url(#nodeGrad)" stroke="#818cf8" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="157" y="200" font-size="13.5" font-weight="600" fill="#e0e7ff" text-anchor="middle">App Router UI</text>
+
+  <rect x="46" y="253" width="222" height="56" rx="12" fill="url(#nodeGrad)" stroke="#818cf8" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="157" y="279" font-size="13.5" font-weight="600" fill="#e0e7ff" text-anchor="middle">Supabase Auth Client</text>
+  <text x="157" y="295" font-size="10.5" fill="#c7d2fe" text-anchor="middle" opacity="0.8">@supabase/ssr</text>
+
+  <!-- Server -->
+  <rect x="344" y="163" width="134" height="64" rx="12" fill="url(#nodeGrad)" stroke="#a78bfa" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="411" y="200" font-size="13.5" font-weight="600" fill="#ede9fe" text-anchor="middle">REST API</text>
+
+  <rect x="496" y="163" width="134" height="64" rx="12" fill="url(#brandGrad)" filter="url(#softShadow)"/>
+  <text x="563" y="196" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">Auth Check</text>
+  <text x="563" y="212" font-size="9" fill="#f5f3ff" text-anchor="middle" opacity="0.9">verifies JWT</text>
+
+  <rect x="344" y="254" width="286" height="64" rx="12" fill="url(#nodeGrad)" stroke="#a78bfa" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="487" y="282" font-size="13.5" font-weight="600" fill="#ede9fe" text-anchor="middle">RAG + Scoring Pipeline</text>
+  <text x="487" y="299" font-size="10.5" fill="#ddd6fe" text-anchor="middle" opacity="0.8">retrieval · rerank · rubric</text>
+
+  <rect x="344" y="346" width="286" height="64" rx="12" fill="url(#nodeGrad)" stroke="#a78bfa" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="487" y="374" font-size="13.5" font-weight="600" fill="#ede9fe" text-anchor="middle">In-Memory Job Store</text>
+  <text x="487" y="391" font-size="10.5" fill="#ddd6fe" text-anchor="middle" opacity="0.8">live progress polling</text>
+
+  <!-- External services -->
+  <rect x="706" y="163" width="222" height="64" rx="12" fill="url(#nodeGrad)" stroke="#e879f9" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="817" y="200" font-size="13.5" font-weight="600" fill="#fae8ff" text-anchor="middle">Supabase Auth API</text>
+
+  <rect x="706" y="254" width="222" height="56" rx="12" fill="url(#nodeGrad)" stroke="#e879f9" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <text x="817" y="287" font-size="13.5" font-weight="600" fill="#fae8ff" text-anchor="middle">SMTP Email</text>
+
+  <!-- LLM providers (tiered) -->
+  <rect x="706" y="442" width="222" height="52" rx="12" fill="url(#nodeGrad)" stroke="#fb7185" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <circle cx="732" cy="468" r="11" fill="#fb7185" fill-opacity="0.25" stroke="#fb7185" stroke-width="1.2"/>
+  <text x="732" y="472" font-size="11" font-weight="700" fill="#fecdd3" text-anchor="middle">1</text>
+  <text x="838" y="472" font-size="13" font-weight="600" fill="#ffe4e6" text-anchor="middle">Ollama Cloud</text>
+
+  <rect x="706" y="520" width="222" height="52" rx="12" fill="url(#nodeGrad)" stroke="#fb7185" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <circle cx="732" cy="546" r="11" fill="#fb7185" fill-opacity="0.25" stroke="#fb7185" stroke-width="1.2"/>
+  <text x="732" y="550" font-size="11" font-weight="700" fill="#fecdd3" text-anchor="middle">2</text>
+  <text x="838" y="550" font-size="13" font-weight="600" fill="#ffe4e6" text-anchor="middle">Gemini Flash Lite</text>
+
+  <rect x="706" y="598" width="222" height="52" rx="12" fill="url(#nodeGrad)" stroke="#fb7185" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <circle cx="732" cy="624" r="11" fill="#fb7185" fill-opacity="0.25" stroke="#fb7185" stroke-width="1.2"/>
+  <text x="732" y="628" font-size="11" font-weight="700" fill="#fecdd3" text-anchor="middle">3</text>
+  <text x="838" y="628" font-size="13" font-weight="600" fill="#ffe4e6" text-anchor="middle">Groq Llama</text>
+
+  <path d="M 817 494 L 817 520" stroke="#fb7185" stroke-width="2" opacity="0.7" marker-end="url(#arrow)"/>
+  <path d="M 817 572 L 817 598" stroke="#fb7185" stroke-width="2" opacity="0.7" marker-end="url(#arrow)"/>
+
+  <!-- Data layer -->
+  <rect x="344" y="524" width="132" height="118" rx="12" fill="url(#nodeGrad)" stroke="#4ade80" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <ellipse cx="410" cy="550" rx="42" ry="10" fill="none" stroke="#86efac" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 368 550 L 368 610 A 42 10 0 0 0 452 610 L 452 550" fill="none" stroke="#86efac" stroke-width="1.5" opacity="0.7"/>
+  <text x="410" y="628" font-size="12.5" font-weight="600" fill="#dcfce7" text-anchor="middle">Qdrant</text>
+
+  <rect x="498" y="524" width="132" height="118" rx="12" fill="url(#nodeGrad)" stroke="#4ade80" stroke-opacity="0.6" filter="url(#softShadow)"/>
+  <ellipse cx="564" cy="550" rx="42" ry="10" fill="none" stroke="#86efac" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 522 550 L 522 610 A 42 10 0 0 0 606 610 L 606 550" fill="none" stroke="#86efac" stroke-width="1.5" opacity="0.7"/>
+  <text x="564" y="592" font-size="11.5" font-weight="600" fill="#dcfce7" text-anchor="middle">Supabase</text>
+  <text x="564" y="608" font-size="11.5" font-weight="600" fill="#dcfce7" text-anchor="middle">Postgres</text>
+
+  <!-- ============ FOOTNOTE ============ -->
+  <text x="24" y="796" font-size="10.5" fill="#6b7280">Colored arrows: violet = internal pipeline flow · rose = LLM calls · green = data persistence · fuchsia = outbound email · gray = auth</text>
+</svg>
